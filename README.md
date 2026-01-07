@@ -20,6 +20,14 @@ This app aims to change that:
 - Input validation:
   - Prevents negative loans
   - Ensures balance never drops below zero
+ 
+## Loan Repayment Logic
+
+The `recordPayment` method ensures:
+- Repayments are **positive**
+- Users **can't overpay**
+- Each transaction is **logged with today's date**
+- Full repayment is **detected safely** (even with decimal rounding)
 
 ## ▶️ How to Run
 1. Ensure you have **Java JDK 8+** installed
