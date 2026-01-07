@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Represents a borrower in a community loan system.
  * Encapsulates loan details including name, original amount, date issued,
@@ -17,8 +19,7 @@ public class Borrower {
    // Current amount still owed (starts equal to loanAmount, decreases with repayments)
    private double outstandingBalance;
    
-   private String[] transactionLog = new String[100];
-   private int transactionCount = 0;
+   private ArrayList<String> transactionLog = new ArrayList<>();
    
    /**
     * Constructs a Borrower with the given name, loan amount, and loan date.
@@ -110,10 +111,7 @@ public class Borrower {
             String currentDate = java.time.LocalDate.now().toString();
             
             // Log the repayment if space is available in the transaction log
-            if (transactionCount < 100) {
-               transactionLog[transactionCount] = "Repaid R" + String.valueOf(amount) + " on " + currentDate;
-               transactionCount++; // Advance log index to maintain chronological order
-            }
+            transactionLog.add(String.format("Repaid R%.2f on %s", amount, currentDate));
             
             // Check if the loan is now fully repaid (using tolerance for floating-point safety)
             if (outstandingBalance < 0.01) {
@@ -126,6 +124,20 @@ public class Borrower {
       } else {
          // Reject non-positive payments (zero or negative amounts are invalid)
          System.out.println("Amount must be positive");
+      }
+   }
+
+/**
+ * Displays the full repayment history for this borrower.
+ * Shows a numbered list of all recorded repayments.
+ */
+public void printStatement() {
+   System.out.println("Repayment History for " + name + ":");
+   if (transactionLog.isEmpty()) {
+      System.out.println("No repayments recorded yet.");
+   } else {
+      for (int i = 0; i < transactionLog.size(); i++) {
+         System.out.println((i + 1) + ". " + transactionLog.get(i));
       }
    }
 }
