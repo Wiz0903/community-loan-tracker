@@ -17,6 +17,9 @@ public class Borrower {
    // Current amount still owed (starts equal to loanAmount, decreases with repayments)
    private double outstandingBalance;
    
+   private String[] transactionLog = new String[100];
+   private int transactionCount = 0;
+   
    /**
     * Constructs a Borrower with the given name, loan amount, and loan date.
     * Initializes outstanding balance to the full loan amount.
@@ -85,6 +88,44 @@ public class Borrower {
          this.outstandingBalance = amount;
       } else {
          System.out.println("Outstanding balance cannot be negative");
+      }
+   }
+   
+   /**
+   * Records a repayment against this loan.
+   * Validates the payment amount and updates the outstanding balance.
+   * Logs the transaction with the current date and notifies when the loan is fully repaid.
+   * 
+   * @param amount The repayment amount (must be positive and not exceed the outstanding balance)
+   */
+   public void recordPayment(double amount) {
+      // Validate that the repayment amount is positive
+      if (amount > 0) {
+         // Ensure the repayment does not exceed the current outstanding balance
+         if (outstandingBalance >= amount) {
+            // Deduct the repayment amount from the outstanding balance
+            outstandingBalance -= amount;
+            
+            // Capture today's date in ISO format (e.g., "2026-01-05") for accurate record-keeping
+            String currentDate = java.time.LocalDate.now().toString();
+            
+            // Log the repayment if space is available in the transaction log
+            if (transactionCount < 100) {
+               transactionLog[transactionCount] = "Repaid R" + String.valueOf(amount) + " on " + currentDate;
+               transactionCount++; // Advance log index to maintain chronological order
+            }
+            
+            // Check if the loan is now fully repaid (using tolerance for floating-point safety)
+            if (outstandingBalance < 0.01) {
+               System.out.println("Loan fully repaid");
+            }
+         } else {
+             // Inform user when repayment exceeds what is owed
+            System.out.println("Repayment amount exceeds outstanding balance.");
+         }
+      } else {
+         // Reject non-positive payments (zero or negative amounts are invalid)
+         System.out.println("Amount must be positive");
       }
    }
 }
