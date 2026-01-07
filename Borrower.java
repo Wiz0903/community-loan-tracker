@@ -127,17 +127,18 @@ public class Borrower {
       }
    }
 
-/**
- * Displays the full repayment history for this borrower.
- * Shows a numbered list of all recorded repayments.
- */
-public void printStatement() {
-   System.out.println("Repayment History for " + name + ":");
-   if (transactionLog.isEmpty()) {
-      System.out.println("No repayments recorded yet.");
-   } else {
-      for (int i = 0; i < transactionLog.size(); i++) {
-         System.out.println((i + 1) + ". " + transactionLog.get(i));
+   /**
+    * Displays the full repayment history for this borrower.
+    * Shows a numbered list of all recorded repayments.
+    */
+   public void printStatement() {
+      System.out.println("Repayment History for " + name + ":");
+      if (transactionLog.isEmpty()) {
+         System.out.println("No repayments recorded yet.");
+      } else {
+         for (int i = 0; i < transactionLog.size(); i++) {
+            System.out.println((i + 1) + ". " + transactionLog.get(i));
+         }
       }
    }
 }
