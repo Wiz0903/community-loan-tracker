@@ -5,32 +5,39 @@ A simple, offline-first Java application to help South African stokvels, stokfon
 > Built for communities. Runs anywhere Java runs.
 
 ## 🎯 Purpose
-In many South African communities, people manage money through trusted groups — but they lack **reliable, private, and offline tools**.  
-This app aims to change that:  
-- No internet needed  
-- No personal data stored in the cloud  
-- Clear, honest tracking of who owes what
+In many South African communities, money is managed through trusted groups — but they lack **reliable, private, and offline tools**.  
+This app changes that by providing:
+- ✅ **Zero internet required** — works on any Java-enabled device  
+- ✅ **No cloud storage** — all data stays on your device  
+- ✅ **Clear, transparent tracking** — no hidden fees, no confusion  
 
 ## 🛠️ Current Features (v0.1)
-- `Borrower` class to store:
-  - Name
-  - Loan amount
-  - Loan date (YYYY-MM-DD)
-  - Outstanding balance
-- Input validation:
-  - Prevents negative loans
-  - Ensures balance never drops below zero
- 
-## Loan Repayment Logic
+### Core Components
+- **`Borrower` class**: Stores loan details per person  
+  - Full name  
+  - Original loan amount  
+  - Loan date (YYYY-MM-DD)  
+  - Current outstanding balance  
+- **`LoanManager` class**: Manages multiple borrowers  
+  - Add new borrowers  
+  - View all active loans (`printLoans()`)  
+  - Calculate total debt across all borrowers (`getTotalOutstanding()`)
 
-The `recordPayment` method ensures:
-- Repayments are **positive**
-- Users **can't overpay**
-- Each transaction is **logged with today's date**
-- Full repayment is **detected safely** (even with decimal rounding)
+### Repayment Safety
+The `recordPayment(double amount)` method ensures:  
+- ❌ No negative repayments  
+- ❌ No overpayment (balance never goes below zero)  
+- ✅ Every payment is logged with timestamp  
+- ✅ Full repayment is detected accurately (handles decimal precision)
+
+### Input Validation
+- Prevents invalid loan amounts (≤ 0)  
+- Blocks repayments exceeding outstanding balance  
+- Graceful error messages — no crashes
 
 ## ▶️ How to Run
-1. Ensure you have **Java JDK 8+** installed
-2. Compile:  
-   ```bash
-   javac Borrower.java
+1. Compile: `javac *.java`  
+2. Run: `java LoanApp` (or your main class)  
+3. Use the console menu to manage loans
+
+> 💡 **Designed for low-resource environments** — minimal memory, no external libraries.
