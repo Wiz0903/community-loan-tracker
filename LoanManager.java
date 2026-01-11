@@ -27,8 +27,10 @@ public class LoanManager {
       double total = 0;
       
       // Iterate through all borrowers and accumulate their individual balances
-      for (int i = 0; i < manager.size(); i++) {
-         total += manager.get(i).getOutstandingBalance();
+      for (Borrower b : manager) {
+         for (Loan loan : b.getLoans()) {
+            total += loan.getOutstandingBalance();
+         }
       }
       return total;
    }
@@ -40,8 +42,10 @@ public class LoanManager {
     */
    public void printLoans() {
       // Format each loan entry as "[Name]: R[Balance]" for clarity and consistency
-      for (int i = 0; i < manager.size(); i++) {
-         System.out.println(String.format("%s: R%.2f", manager.get(i).getName(), manager.get(i).getOutstandingBalance()));
+      for (Borrower b : manager) {
+         for (Loan loan : b.getLoans()) {
+            System.out.println(String.format("%s: R%.2f", b.getName(), loan.getOutstandingBalance()));
+         }
       }
    }
 }
