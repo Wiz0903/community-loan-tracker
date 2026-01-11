@@ -22,7 +22,7 @@ This app changes that by providing:
   - Add new borrowers  
   - View all active loans (`printLoans()`)  
   - Calculate total debt across all borrowers (`getTotalOutstanding()`)
-- **` Loan class**: Represents a single loan with full lifecycle tracking
+- **` Loan` class**: Represents a single loan with full lifecycle tracking
   - Original amount & outstanding balance
   - Due date (YYYY-MM-DD)
   - Overdue status detection
