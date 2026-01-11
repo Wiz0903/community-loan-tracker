@@ -22,6 +22,11 @@ This app changes that by providing:
   - Add new borrowers  
   - View all active loans (`printLoans()`)  
   - Calculate total debt across all borrowers (`getTotalOutstanding()`)
+- **` Loan class**: Represents a single loan with full lifecycle tracking
+  - Original amount & outstanding balance
+  - Due date (YYYY-MM-DD)
+  - Overdue status detection
+  - Full repayment history with timestamps
 
 ### Repayment Safety
 The `recordPayment(double amount)` method ensures:  
@@ -29,6 +34,11 @@ The `recordPayment(double amount)` method ensures:
 - ❌ No overpayment (balance never goes below zero)  
 - ✅ Every payment is logged with timestamp  
 - ✅ Full repayment is detected accurately (handles decimal precision)
+
+### Time-Aware Logic
+- Due dates set at loan creation
+- Overdue check: Compares today’s date to due date using safe ISO format (YYYY-MM-DD)
+- Clear "Overdue" message when deadline is missed
 
 ### Input Validation
 - Prevents invalid loan amounts (≤ 0)  
